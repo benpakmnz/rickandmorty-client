@@ -1,14 +1,14 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useMemo, useState } from "react";
 import {
   Button,
   Card,
   Grid,
   TextField,
+  Tooltip,
   Typography,
   useMediaQuery,
 } from "@mui/material";
-import SendIcon from "@mui/icons-material/Send";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./auth.module.scss";
 import { login, signup } from "../../services/apiAuth";
 import { IUserAuthParams } from "../../utils/Interfaces/auth-interface";
@@ -16,15 +16,34 @@ import { useMutation } from "@tanstack/react-query";
 
 const Auth = () => {
   const navigate = useNavigate();
-  const isSignup = location.pathname === "/signup";
+  const location = useLocation();
+  const isSignup = useMemo(
+    () => location.pathname === "/signup",
+    [location.pathname]
+  );
   const isSmallScreen = useMediaQuery("(max-width:600px)");
 
+  const [formErrors, setFormErrors] = useState<{ [key: string]: string }>({});
+  const [serverError, setServerError] = useState<string | null>(null);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [formData, setFormData] = useState<IUserAuthParams>({
     email: "",
     password: "",
     name: "",
-    id: "",
   });
+
+  useEffect(() => {
+    setIsButtonDisabled(isFormInvalid());
+    setServerError(null);
+  }, [formData, isSignup]);
+
+  const isFormInvalid = () => {
+    if (isSignup) {
+      return Object.values(formData).some((value) => value === "");
+    } else {
+      return formData.email === "" || formData.password === "";
+    }
+  };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -34,6 +53,11 @@ const Auth = () => {
       ...prevState,
       [name]: value,
     }));
+
+    setFormErrors((prevState) => ({
+      ...prevState,
+      [name]: value ? "" : `Please enter ${name}.`,
+    }));
   };
 
   const mutation = useMutation({
@@ -42,6 +66,9 @@ const Auth = () => {
       if (data) {
         navigate("/");
       }
+    },
+    onError: (error) => {
+      setServerError(error.message || "An error occurred.");
     },
   });
 
@@ -59,14 +86,13 @@ const Auth = () => {
         {isSignup ? "Signup" : "Login"}:
       </Typography>
       <form onSubmit={onSubmit}>
-        <Grid container spacing={2}>
+        <Grid container spacing={3}>
           <Grid item xs={12}>
             <TextField
               name="email"
               label="Email"
               variant="outlined"
               value={formData.email}
-              size="small"
               type="email"
               required
               fullWidth
@@ -81,7 +107,6 @@ const Auth = () => {
               variant="outlined"
               required
               value={formData.password}
-              size="small"
               fullWidth
               onChange={handleChange}
             />
@@ -96,28 +121,41 @@ const Auth = () => {
                 label="Name"
                 variant="outlined"
                 value={formData.name}
-                size="small"
                 fullWidth
                 onChange={handleChange}
               />
             </Grid>
           )}
-
-          <Grid item xs={12} className="flex-item end">
-            <Button
-              type="submit"
-              variant="contained"
-              size="small"
-              color="primary"
-              endIcon={<SendIcon fontSize="small" />}
+          <Grid item xs={12}>
+            {serverError && (
+              <Typography variant="body2" color="error">
+                {serverError}
+              </Typography>
+            )}
+          </Grid>
+          <Grid item xs={12} className={styles.actionsContainer}>
+            <Tooltip
+              title={
+                Object.keys(formErrors).length > 0
+                  ? "Please fill in all required fields"
+                  : ""
+              }
             >
-              {isSignup ? "sign up" : "login"}
-            </Button>
+              <span>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  disabled={isButtonDisabled}
+                >
+                  {isSignup ? "sign up" : "login"}
+                </Button>
+              </span>
+            </Tooltip>
 
             <Button
               type="button"
               variant="text"
-              size="small"
               color="primary"
               onClick={() => navigate(isSignup ? "/login" : "/signup")}
             >

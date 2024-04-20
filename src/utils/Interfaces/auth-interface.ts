@@ -2,7 +2,7 @@ export interface IUserParams {
   email: string;
   name: string;
   isAdmin?: boolean;
-  id: string;
+  id?: string;
   // user_pic: string;
 }
 
