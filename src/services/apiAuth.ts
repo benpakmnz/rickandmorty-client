@@ -4,28 +4,24 @@ import {
 } from "../utils/Interfaces/auth-interface";
 import api from "./apiConnect";
 
-export const login = async (
-  userAttrs: IUserAuthParams
-): Promise<{ user: IUserParams; token: string } | null> => {
+export const login = async (userAttrs: IUserAuthParams) => {
   try {
-    const response = await api.post(`/auth/login`, userAttrs);
+    const { email, password } = userAttrs;
+    const response = await api.post(`/auth/login`, { email, password });
     const resData = response.data;
 
-    if (resData && resData.token) {
-      handleLocalStorageAuth(resData.token);
-      return resData;
+    handleLocalStorageAuth(resData.token);
+    return resData;
+  } catch (error: any) {
+    if (error.response && error.response.data && error.response.data.message) {
+      throw new Error(error.response.data.message);
     } else {
-      return null;
+      throw new Error("An error occurred");
     }
-  } catch (error) {
-    console.log(error);
-    return null;
   }
 };
 
-export const signup = async (
-  userAttrs: IUserAuthParams
-): Promise<{ user: IUserParams; token: string } | null> => {
+export const signup = async (userAttrs: IUserAuthParams) => {
   try {
     const response = await api.post(`/auth/signup`, userAttrs);
     const resData = response.data;
@@ -36,9 +32,12 @@ export const signup = async (
     } else {
       return null;
     }
-  } catch (error) {
-    console.log(error);
-    return null;
+  } catch (error: any) {
+    if (error.response && error.response.data && error.response.data.message) {
+      throw new Error(error.response.data.message);
+    } else {
+      throw new Error("An error occurred");
+    }
   }
 };
 
@@ -51,18 +50,19 @@ export const autoLogin = async (): Promise<{
     if (storageKey && localStorage.getItem(storageKey)) {
       const response = await api.get(`/auth/autoLogin`);
       const resData = response.data;
-
-      if (resData) {
-        return resData;
-      } else {
-        return null;
+      if (!resData) {
+        throw new Error("An error occurred");
       }
+      return resData;
     } else {
-      return null;
+      throw new Error("An error occurred");
     }
-  } catch (error) {
-    console.log(error);
-    return null;
+  } catch (error: any) {
+    if (error.response && error.response.data && error.response.data.message) {
+      throw new Error(error.response.data.message);
+    } else {
+      throw new Error("An error occurred");
+    }
   }
 };
 
