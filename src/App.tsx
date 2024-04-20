@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "./App.css";
+import "./app.scss";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AppLayout from "./components/AppLayout";
 import Auth from "./pages/auth/Auth";
-import Locations from "./pages/Locations";
+import Locations from "./pages/locations/Locations";
 import LocationInfo from "./pages/location/Location";
 
 function App() {

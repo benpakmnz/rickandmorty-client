@@ -4,11 +4,12 @@ import SearchIcon from "@mui/icons-material/Search";
 import React, { useState } from "react";
 import LocationItem, {
   ILocationAttr,
-} from "../components/locationItem/LocationItem";
+} from "../../components/locationItem/LocationItem";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { getLocations } from "../services/apiLocation";
-import { addLocationRequest } from "../services/apiLocationRequests";
-import useDebounce from "../hooks/useDebounce";
+import { getLocations } from "../../services/apiLocation";
+import { addLocationRequest } from "../../services/apiLocationRequests";
+import useDebounce from "../../hooks/useDebounce";
+import styles from "./styles.module.scss";
 
 const Locations: React.FC = () => {
   const [searchInput, setSearchInput] = useState<string>("");
@@ -39,24 +40,11 @@ const Locations: React.FC = () => {
   };
 
   return (
-    <Grid
-      container
-      spacing={5}
-      justifyContent="center"
-      alignItems="center"
-      sx={{ maxWidth: "1500px", margin: "auto" }}
-    >
-      <Grid item>
-        <Paper
-          sx={{
-            p: "2px 4px",
-            display: "flex",
-            alignItems: "center",
-            width: 400,
-          }}
-        >
+    <Grid container spacing={5} mt={5} className={styles.locationWrapper}>
+      <Grid item xs={12} lg={8} xl={6}>
+        <Paper className={styles.searchbar}>
           <InputBase
-            sx={{ ml: 1, flex: 1 }}
+            className={styles.inputBase}
             placeholder="Search for location"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               handleInputChange(e.target.value)
@@ -65,15 +53,17 @@ const Locations: React.FC = () => {
           <SearchIcon />
         </Paper>
       </Grid>
-      <Grid item xs={12}>
-        <Grid container spacing={2} justifyContent="center">
+      <Grid item xs={10}>
+        <Grid container spacing={2} justifyContent="center" alignItems="center">
           {locationsList && !isError && locationsList.length > 0 ? (
             locationsList?.map((location) => (
-              <LocationItem location={location} key={location.id} />
+              <Grid item xs={6} lg={4} xl={3}>
+                <LocationItem location={location} key={location.id} />
+              </Grid>
             ))
           ) : (
-            <Grid item sx={{ textAlign: "center" }}>
-              <Typography variant="h6">
+            <Grid item className={styles.noLocationsWrapper}>
+              <Typography variant="h4" mb={3}>
                 Couldn't find what you're looking for? Don't worry!
                 <br /> Let us know, and we'll hunt it down for you.
               </Typography>
@@ -81,10 +71,10 @@ const Locations: React.FC = () => {
                 Request Location Addition
               </Button>
               {successMessage && <p>{successMessage}</p>}
-              <p>
+              <Typography variant="h6" mt={3}>
                 if we locate your desired location, we'll make sure to add it to
                 our site for everyone to discover!"
-              </p>
+              </Typography>
             </Grid>
           )}
         </Grid>

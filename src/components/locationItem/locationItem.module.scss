@@ -1,10 +1,40 @@
-.container {
+.cardContainer {
+  cursor: pointer;
+  margin: auto;
   display: flex;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
 
-  .avatar {
-    width: 200px;
-    height: 200px;
+  &:hover {
+    .avatarContainer {
+      background-color: #01665c !important; /* Change the background color on hover */
+      animation: growAnimation 0.3s ease forwards;
+    }
+  }
+
+  .avatarContainer {
+    font-size: 60px !important;
+    width: 50% !important;
+    height: auto !important;
+    margin-bottom: 10px;
+    background-color: #009688 !important;
+    box-shadow: 1px 1px 12px -2px #00000085;
+    border: 1px solid white;
+    transition: background-color 0.3s ease;
+  }
+
+  .avatarContainer:before {
+    content: "";
+    padding-top: 100%;
+  }
+}
+
+@keyframes growAnimation {
+  0% {
+    transform: scale(1); /* Initial scale */
+  }
+  100% {
+    transform: scale(1.05); /* Final scale */
   }
 }

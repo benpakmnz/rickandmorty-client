@@ -15,7 +15,7 @@ import {
   getCharecters,
   getLocation,
 } from "../../services/apiLocation";
-import styles from "./location.module.scss";
+import styles from "./styles.module.scss";
 import { ILocationAttr } from "../../components/locationItem/LocationItem";
 
 export interface IResidentAttr {

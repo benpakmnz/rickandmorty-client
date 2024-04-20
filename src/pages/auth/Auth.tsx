@@ -9,7 +9,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
-import styles from "./auth.module.scss";
+import styles from "./styles.module.scss";
 import { login, signup } from "../../services/apiAuth";
 import { IUserAuthParams } from "../../utils/Interfaces/auth-interface";
 import { useMutation } from "@tanstack/react-query";

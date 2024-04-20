@@ -1,0 +1,26 @@
+.locationWrapper {
+  justify-content: center;
+  align-items: center;
+
+  .searchbar {
+    padding: 2px 20px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+
+    .inputBase {
+      margin-left: 1rem;
+      flex: 1;
+    }
+  }
+}
+
+.noLocationsWrapper {
+  text-align: center;
+  margin: auto;
+
+  p {
+    margin: 20px 0;
+  }
+}
