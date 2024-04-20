@@ -5,23 +5,25 @@ import React, { useState } from "react";
 import LocationItem, {
   ILocationAttr,
 } from "../../components/locationItem/LocationItem";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
 import { getLocations } from "../../services/apiLocation";
 import { addLocationRequest } from "../../services/apiLocationRequests";
 import useDebounce from "../../hooks/useDebounce";
 import styles from "./styles.module.scss";
+import LoaderComponent from "../../components/loaderComponent/LoaderComponent";
 
 const Locations: React.FC = () => {
   const [searchInput, setSearchInput] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState("");
-  const debouncedSearchValue = useDebounce(searchInput, 1000);
+  const debouncedSearchValue = useDebounce(searchInput, 500);
 
-  const { data: locationsList, isError } = useQuery<ILocationAttr[]>({
+  const { data: locationsList, isLoading } = useQuery<ILocationAttr[]>({
     queryKey: ["locations", debouncedSearchValue],
     queryFn: async () => {
       const data = await getLocations(searchInput);
       return data;
     },
+    placeholderData: keepPreviousData,
   });
 
   const mutation = useMutation({
@@ -54,8 +56,9 @@ const Locations: React.FC = () => {
         </Paper>
       </Grid>
       <Grid item xs={10}>
+        {isLoading && <LoaderComponent />}
         <Grid container spacing={2} justifyContent="center" alignItems="center">
-          {locationsList && !isError && locationsList.length > 0 ? (
+          {locationsList && locationsList.length > 0 ? (
             locationsList?.map((location) => (
               <Grid item xs={6} lg={4} xl={3}>
                 <LocationItem location={location} key={location.id} />
