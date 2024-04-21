@@ -9,7 +9,6 @@ api.interceptors.request.use(
   (config) => {
     if (storageKey) {
       const localStorageItem = localStorage.getItem(storageKey);
-      console.log(localStorageItem);
       if (localStorageItem) {
         config.headers.Authorization = `Bearer ${localStorageItem}`;
       }

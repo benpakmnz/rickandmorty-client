@@ -24,7 +24,6 @@ export const getLocation = async (
   try {
     const response = await api.get(`/location/${locationId}`);
     const resData = await response.data;
-    console.log(resData);
     return resData;
   } catch (error: any) {
     if (error.response && error.response.data && error.response.data.message) {
