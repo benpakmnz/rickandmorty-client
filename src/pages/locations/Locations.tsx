@@ -72,7 +72,9 @@ const Locations: React.FC = () => {
               <Button variant="contained" onClick={handleButtonClick}>
                 Request Location Addition
               </Button>
-              {successMessage && <p>{successMessage}</p>}
+              {successMessage && (
+                <Typography variant="body1">{successMessage}</Typography>
+              )}
               <Typography variant="h6" mt={3}>
                 if we locate your desired location, we'll make sure to add it to
                 our site for everyone to discover!"

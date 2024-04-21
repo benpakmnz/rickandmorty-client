@@ -6,14 +6,15 @@ export const getLocations = async (
 ): Promise<ILocationParams[]> => {
   try {
     const searchPath = name.length > 0 ? `search/${name}` : "";
-    const response = await api.get(
-      `http://localhost:5004/api/location/${searchPath}`
-    );
+    const response = await api.get(`/location/${searchPath}`);
     const resData = response.data;
     return resData;
-  } catch (error) {
-    console.log(error);
-    return [];
+  } catch (error: any) {
+    if (error.response && error.response.data && error.response.data.message) {
+      throw new Error(error.response.data.message);
+    } else {
+      throw new Error("An error occurred");
+    }
   }
 };
 
@@ -21,15 +22,16 @@ export const getLocation = async (
   locationId: string
 ): Promise<ILocationParams | null> => {
   try {
-    const response = await api.get(
-      `http://localhost:5004/api/location/${locationId}`
-    );
+    const response = await api.get(`/location/${locationId}`);
     const resData = await response.data;
     console.log(resData);
     return resData;
-  } catch (error) {
-    console.log(error);
-    return null;
+  } catch (error: any) {
+    if (error.response && error.response.data && error.response.data.message) {
+      throw new Error(error.response.data.message);
+    } else {
+      throw new Error("An error occurred");
+    }
   }
 };
 
@@ -37,30 +39,32 @@ export const getCharecters = async (
   charctersIdArr: string[]
 ): Promise<IResidentParams[] | null> => {
   try {
-    const response = await api.post(
-      `http://localhost:5004/api/location/residents`,
-      { residentsIds: charctersIdArr }
-    );
+    const response = await api.post(`/location/residents`, {
+      residentsIds: charctersIdArr,
+    });
     const resData = response.data;
     return resData;
-  } catch (error) {
-    console.log(error);
-    return null;
+  } catch (error: any) {
+    if (error.response && error.response.data && error.response.data.message) {
+      throw new Error(error.response.data.message);
+    } else {
+      throw new Error("An error occurred");
+    }
   }
 };
 
 export const addLocation = async (locationObj: ILocationParams) => {
   try {
-    const response = await api.post(
-      `http://localhost:5004/api/location-req/add-location`,
-      {
-        ...locationObj,
-      }
-    );
+    const response = await api.post(`/location-req/add-location`, {
+      ...locationObj,
+    });
     const resData = response.data;
     return resData;
-  } catch (error) {
-    console.log(error);
-    return null;
+  } catch (error: any) {
+    if (error.response && error.response.data && error.response.data.message) {
+      throw new Error(error.response.data.message);
+    } else {
+      throw new Error("An error occurred");
+    }
   }
 };

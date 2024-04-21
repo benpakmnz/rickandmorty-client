@@ -1,10 +1,9 @@
 import axios from "axios";
 
-const api = axios.create({
-  baseURL: "http://localhost:5004/api",
-});
-
 const storageKey = process.env.STORAGE_KEY;
+const baseURL = process.env.BASE_URL;
+
+const api = axios.create({ baseURL });
 
 api.interceptors.request.use(
   (config) => {

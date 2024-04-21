@@ -7,6 +7,7 @@ export default defineConfig(({ mode }) => {
   return {
     define: {
       "process.env.STORAGE_KEY": JSON.stringify(env.STORAGE_KEY),
+      "process.env.BASE_URL": JSON.stringify(env.BASE_URL),
     },
     plugins: [react()],
   };
