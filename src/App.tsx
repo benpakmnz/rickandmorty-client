@@ -5,6 +5,7 @@ import AppLayout from "./components/AppLayout";
 import Auth from "./pages/auth/Auth";
 import Locations from "./pages/locations/Locations";
 import LocationInfo from "./pages/locationInfo/LocationInfo";
+import NotFound from "./components/notFound/NotFound";
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
 
         <Route path="login" element={<Auth />} />
         <Route path="signup" element={<Auth />} />
-        <Route path="*" element={<h1>not found</h1>} />
+        <Route path="*" element={<NotFound title="Page Not found..." />} />
       </Routes>
     </BrowserRouter>
   );
