@@ -2,6 +2,8 @@ import React, { ChangeEvent, useEffect, useMemo, useState } from "react";
 import {
   Button,
   Card,
+  Checkbox,
+  FormControlLabel,
   Grid,
   TextField,
   Tooltip,
@@ -31,6 +33,7 @@ const Auth = () => {
     email: "",
     password: "",
     name: "",
+    isAdmin: false,
   });
 
   useEffect(() => {
@@ -47,8 +50,11 @@ const Auth = () => {
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+    let value: string | boolean = e.target.value;
     const name = e.target.name;
+    if (name === "isAdmin") {
+      value = e.target.checked;
+    }
 
     setFormData((prevState) => ({
       ...prevState,
@@ -79,7 +85,11 @@ const Auth = () => {
   };
 
   return (
-    <Card className={styles.authContainer} variant="outlined">
+    <Card
+      className={styles.authContainer}
+      variant="outlined"
+      sx={{ width: isSmallScreen ? "80vw" : "50vw" }}
+    >
       <Typography component="h1" variant={isSmallScreen ? "h4" : "h2"}>
         The Rick and Morty Locations
       </Typography>
@@ -127,6 +137,27 @@ const Auth = () => {
                   onChange={handleChange}
                 />
               </Grid>
+              <Grid item xs={12}>
+                <FormControlLabel
+                  label="is admin"
+                  control={
+                    <Checkbox
+                      name="isAdmin"
+                      checked={formData.isAdmin}
+                      onChange={handleChange}
+                    />
+                  }
+                />
+              </Grid>
+              {formData.isAdmin && (
+                <Grid item xs={12}>
+                  <Typography variant="body1">
+                    As an admin, you'll gain access to an extensive range of
+                    locations and the opportunity to seamlessly integrate
+                    locations into our expansive database."
+                  </Typography>
+                </Grid>
+              )}
             </>
           )}
           <Grid item xs={12}>
