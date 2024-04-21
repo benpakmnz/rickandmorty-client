@@ -4,6 +4,7 @@ import { queryClient } from "../../main";
 import { IUserParams } from "../../utils/Interfaces/auth-interface";
 import useMediaQueryScreen from "../../hooks/useMediaQuery";
 import styles from "./styles.module.scss";
+import icon from "../../assets/rickandmortyicon.svg";
 
 const Header: React.FC = () => {
   const { isSmallScreen } = useMediaQueryScreen();
@@ -13,15 +14,27 @@ const Header: React.FC = () => {
 
   return (
     <Grid component={"header"} container>
-      <Grid item sm={8}>
+      <Grid
+        item
+        sm={8}
+        className={styles.logo}
+        sx={
+          isSmallScreen
+            ? { flexDirection: "column", alignItems: "flex-start" }
+            : { alignItems: "center" }
+        }
+      >
+        <img src={icon} />
         <Typography
           className={styles.appTitle}
           component="h1"
           variant="h2"
-          sx={{ fontSize: isSmallScreen ? 30 : 60, fontWeight: "bold" }}
+          sx={{
+            fontSize: isSmallScreen ? 30 : 60,
+            fontWeight: "bold",
+          }}
         >
-          The <br />
-          Rick and Morty <br /> Locations
+          The Rick and Morty <br /> Locations
         </Typography>
       </Grid>
       <Grid item sx={{ display: "flex", alignItems: "center" }}>

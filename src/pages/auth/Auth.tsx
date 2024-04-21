@@ -114,18 +114,20 @@ const Auth = () => {
           </Grid>
 
           {isSignup && (
-            <Grid item xs={12}>
-              <TextField
-                type="name"
-                name="name"
-                required
-                label="Name"
-                variant="outlined"
-                value={formData.name}
-                fullWidth
-                onChange={handleChange}
-              />
-            </Grid>
+            <>
+              <Grid item xs={12}>
+                <TextField
+                  type="name"
+                  name="name"
+                  required
+                  label="Name"
+                  variant="outlined"
+                  value={formData.name}
+                  fullWidth
+                  onChange={handleChange}
+                />
+              </Grid>
+            </>
           )}
           <Grid item xs={12}>
             {serverError && (
