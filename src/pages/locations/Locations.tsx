@@ -10,7 +10,7 @@ import { getLocations } from "../../services/apiLocation";
 import { addLocationRequest } from "../../services/apiLocationRequests";
 import useDebounce from "../../hooks/useDebounce";
 import styles from "./styles.module.scss";
-import LoaderComponent from "../../components/loaderComponent/LoaderComponent";
+import Loader from "../../components/loader/Loader";
 
 const Locations: React.FC = () => {
   const [searchInput, setSearchInput] = useState<string>("");
@@ -56,7 +56,7 @@ const Locations: React.FC = () => {
         </Paper>
       </Grid>
       <Grid item xs={10}>
-        {isLoading && <LoaderComponent />}
+        {isLoading && <Loader />}
         <Grid container spacing={2} justifyContent="center" alignItems="center">
           {locationsList && locationsList.length > 0 ? (
             locationsList?.map((location) => (

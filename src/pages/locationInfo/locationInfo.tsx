@@ -23,6 +23,7 @@ import { queryClient } from "../../main";
 import { IUserParams } from "../../utils/Interfaces/auth-interface";
 import { getNameInitial } from "../../utils/helpers";
 import styles from "./styles.module.scss";
+import Loader from "../../components/loader/Loader";
 
 const LocationInfo: React.FC = () => {
   const { id } = useParams();
@@ -70,7 +71,7 @@ const LocationInfo: React.FC = () => {
     }
   }, [id, refetchLocation]);
 
-  if (isLoading || isLoadingAnotherResource) return <h1>loading.....</h1>;
+  if (isLoading || isLoadingAnotherResource) return <Loader />;
   if (!locationItem) return <h1>loaction not found</h1>;
   return (
     <Grid
