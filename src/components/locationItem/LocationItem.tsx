@@ -1,6 +1,6 @@
 import { Avatar, Typography } from "@mui/material";
 import React, { ReactElement } from "react";
-import styles from "./locationItem.module.scss";
+import styles from "./styles.module.scss";
 import { useNavigate } from "react-router-dom";
 
 export interface ILocationAttr {

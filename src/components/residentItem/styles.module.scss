@@ -1,0 +1,9 @@
+.avatarContainer {
+  width: 100% !important;
+  height: auto !important;
+}
+
+.avatarContainer:before {
+  content: "";
+  padding-top: 100%;
+}

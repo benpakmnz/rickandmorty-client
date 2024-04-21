@@ -1,12 +1,4 @@
-import {
-  Avatar,
-  Button,
-  Card,
-  CardMedia,
-  Divider,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { Avatar, Button, Divider, Grid, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
@@ -15,17 +7,10 @@ import {
   getCharecters,
   getLocation,
 } from "../../services/apiLocation";
-import styles from "./styles.module.scss";
 import { ILocationAttr } from "../../components/locationItem/LocationItem";
-
-export interface IResidentAttr {
-  image: string;
-  gender: string;
-  status: string;
-  name: string;
-  species: string;
-  id: number;
-}
+import ResidentItem, {
+  IResidentAttr,
+} from "../../components/residentItem/ResidentItem";
 
 const LocationInfo: React.FC = () => {
   const { id } = useParams();
@@ -97,20 +82,8 @@ const LocationInfo: React.FC = () => {
             <Typography>Residents ({residentsList?.length || 0})</Typography>
           </Grid>
           {residentsList?.map((resident) => (
-            <Grid item key={resident.id}>
-              <Card className={styles.charecterCard}>
-                <CardMedia
-                  className={styles.cardMedia}
-                  image={resident.image}
-                ></CardMedia>
-                <div className={styles.cardContainter}>
-                  <Typography>{resident.name}</Typography>
-                  <p>
-                    Status:{resident.status} | Species: {resident.species} |
-                    Gender: {resident.gender}
-                  </p>
-                </div>
-              </Card>
+            <Grid item xs={4} key={resident.id}>
+              <ResidentItem resident={resident} />
             </Grid>
           ))}
         </Grid>
