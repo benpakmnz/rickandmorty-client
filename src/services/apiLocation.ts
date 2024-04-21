@@ -1,8 +1,9 @@
-import { ILocationAttr } from "../components/locationItem/LocationItem";
-import { IResidentAttr } from "../pages/locationInfo/LocationInfo";
+import { ILocationParams, IResidentParams } from "../utils/interfaces";
 import api from "./apiConnect";
 
-export const getLocations = async (name: string): Promise<ILocationAttr[]> => {
+export const getLocations = async (
+  name: string
+): Promise<ILocationParams[]> => {
   try {
     const searchPath = name.length > 0 ? `search/${name}` : "";
     const response = await api.get(
@@ -18,7 +19,7 @@ export const getLocations = async (name: string): Promise<ILocationAttr[]> => {
 
 export const getLocation = async (
   locationId: string
-): Promise<ILocationAttr | null> => {
+): Promise<ILocationParams | null> => {
   try {
     const response = await api.get(
       `http://localhost:5004/api/location/${locationId}`
@@ -34,7 +35,7 @@ export const getLocation = async (
 
 export const getCharecters = async (
   charctersIdArr: string[]
-): Promise<IResidentAttr[] | null> => {
+): Promise<IResidentParams[] | null> => {
   try {
     const response = await api.post(
       `http://localhost:5004/api/location/residents`,
@@ -48,7 +49,7 @@ export const getCharecters = async (
   }
 };
 
-export const addLocation = async (locationObj: ILocationAttr) => {
+export const addLocation = async (locationObj: ILocationParams) => {
   try {
     const response = await api.post(
       `http://localhost:5004/api/location-req/add-location`,

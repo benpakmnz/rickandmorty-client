@@ -12,9 +12,9 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./styles.module.scss";
 import { login, signup } from "../../services/apiAuth";
-import { IUserAuthParams } from "../../utils/Interfaces/auth-interface";
 import { useMutation } from "@tanstack/react-query";
 import useMediaQueryScreen from "../../hooks/useMediaQuery";
+import { IUserAuthParams } from "../../utils/interfaces";
 
 const Auth = () => {
   const navigate = useNavigate();

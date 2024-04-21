@@ -2,22 +2,21 @@ import { Button, Grid, InputBase, Paper, Typography } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
 import React, { useState } from "react";
-import LocationItem, {
-  ILocationAttr,
-} from "../../components/locationItem/LocationItem";
+import LocationItem from "../../components/locationItem/LocationItem";
 import { keepPreviousData, useMutation, useQuery } from "@tanstack/react-query";
 import { getLocations } from "../../services/apiLocation";
 import { addLocationRequest } from "../../services/apiLocationRequests";
 import useDebounce from "../../hooks/useDebounce";
 import styles from "./styles.module.scss";
 import Loader from "../../components/loader/Loader";
+import { ILocationParams } from "../../utils/interfaces";
 
 const Locations: React.FC = () => {
   const [searchInput, setSearchInput] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState("");
   const debouncedSearchValue = useDebounce(searchInput, 500);
 
-  const { data: locationsList, isLoading } = useQuery<ILocationAttr[]>({
+  const { data: locationsList, isLoading } = useQuery<ILocationParams[]>({
     queryKey: ["locations", debouncedSearchValue],
     queryFn: async () => {
       const data = await getLocations(searchInput);

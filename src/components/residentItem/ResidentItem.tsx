@@ -1,17 +1,11 @@
 import { Avatar, Grid, Typography } from "@mui/material";
 import React from "react";
 import styles from "./styles.module.scss";
+import { IResidentParams } from "../../utils/interfaces";
 
-export interface IResidentAttr {
-  image: string;
-  gender: string;
-  status: string;
-  name: string;
-  species: string;
-  id: number;
-}
-
-const ResidentItem: React.FC<{ resident: IResidentAttr }> = ({ resident }) => {
+const ResidentItem: React.FC<{ resident: IResidentParams }> = ({
+  resident,
+}) => {
   return (
     <Grid container spacing={2} className={styles.residentContainter}>
       <Grid item xs={4}>

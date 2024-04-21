@@ -7,16 +7,17 @@ import {
   getCharecters,
   getLocation,
 } from "../../services/apiLocation";
-import { ILocationAttr } from "../../components/locationItem/LocationItem";
-import ResidentItem, {
-  IResidentAttr,
-} from "../../components/residentItem/ResidentItem";
+import ResidentItem from "../../components/residentItem/ResidentItem";
 import { queryClient } from "../../main";
-import { IUserParams } from "../../utils/Interfaces/auth-interface";
 import { getNameInitial } from "../../utils/helpers";
 import styles from "./styles.module.scss";
 import Loader from "../../components/loader/Loader";
 import useMediaQueryScreen from "../../hooks/useMediaQuery";
+import {
+  ILocationParams,
+  IResidentParams,
+  IUserParams,
+} from "../../utils/interfaces";
 
 const LocationInfo: React.FC = () => {
   const { id } = useParams();
@@ -29,7 +30,7 @@ const LocationInfo: React.FC = () => {
     isLoading,
     data: locationItem,
     refetch: refetchLocation,
-  } = useQuery<ILocationAttr | null>({
+  } = useQuery<ILocationParams | null>({
     queryKey: ["location"],
     queryFn: () => (id ? getLocation(id) : null),
     staleTime: 0,
@@ -39,7 +40,7 @@ const LocationInfo: React.FC = () => {
     isLoading: isLoadingAnotherResource,
     data: residentsList,
     refetch: refetchResidents,
-  } = useQuery<IResidentAttr[] | null>({
+  } = useQuery<IResidentParams[] | null>({
     queryKey: ["residents"],
     queryFn: () =>
       locationItem?.residents ? getCharecters(locationItem.residents) : null,

@@ -1,10 +1,10 @@
 import { Avatar, Grid, Typography } from "@mui/material";
 import React from "react";
 import { queryClient } from "../../main";
-import { IUserParams } from "../../utils/Interfaces/auth-interface";
 import useMediaQueryScreen from "../../hooks/useMediaQuery";
 import styles from "./styles.module.scss";
 import icon from "../../assets/rickandmortyicon.svg";
+import { IUserParams } from "../../utils/interfaces";
 
 const Header: React.FC = () => {
   const { isSmallScreen } = useMediaQueryScreen();
