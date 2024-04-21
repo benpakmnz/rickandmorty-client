@@ -42,8 +42,8 @@ const Locations: React.FC = () => {
   };
 
   return (
-    <Grid container spacing={5} mt={5} className={styles.locationWrapper}>
-      <Grid item xs={12} lg={8} xl={6}>
+    <Grid container rowSpacing={8} mt={1} className={styles.locationWrapper}>
+      <Grid item xs={9} lg={8} xl={6}>
         <Paper className={styles.searchbar}>
           <InputBase
             className={styles.inputBase}
