@@ -33,7 +33,7 @@ Login/Signup page
 All Locations Page
 ![Workflow](https://github.com/benpakmnz/rickandmorty-client/blob/main/wiki/loactions-1.png)
 ![Workflow](https://github.com/benpakmnz/rickandmorty-client/blob/main/wiki/loactions-2.png)
-![Workflow](https://github.com/benpakmnz/rickandmorty-client/blob/main/wiki/loactions-for admin.png)
+![Workflow](https://github.com/benpakmnz/rickandmorty-client/blob/main/wiki/loactions-for-admin.png)
 ![Workflow](https://github.com/benpakmnz/rickandmorty-client/blob/main/wiki/loactions-mobile.png)
 
 Location info Page
