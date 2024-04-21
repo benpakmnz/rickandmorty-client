@@ -1,30 +1,40 @@
-# React + TypeScript + Vite
+# Client Project React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Related Server app @ [rickandmorty-server](https://github.com/benpakmnz/rickandmorty-server.git).
 
-Currently, two official plugins are available:
+## Core NPM Module
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [x] `Axios`
+- [x] `@types/node`
+- [x] `Typescript`
+- [x] `React-query`
+- [x] `@mui/icons-material`
+- [x] `@mui/icons-material`
+- [x] `@mui/material`
+- [x] `Sass`
+- [x] `Css modules`
+- [x] `Dotenv`
 
-## Expanding the ESLint configuration
+## Start The application in Development Mode
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- Clone the Client Application `git clone https://github.com/benpakmnz/rickandmorty-client`
+- Change directory into client
+- Install the dependencies `npm install`
+- create .env file with STORAGE_KEY, BASE_URL variables
+- Start the application `npm run dev`
 
-- Configure the top-level `parserOptions` property like this:
+### `npm run dev`
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+Login/Signup page
+![Workflow](https://github.com/benpakmnz/rickandmorty-client/blob/main/wiki/login.png)
+![Workflow](https://github.com/benpakmnz/rickandmorty-client/blob/main/wiki/signup.png)
+![Workflow](https://github.com/benpakmnz/rickandmorty-client/blob/main/wiki/signup-mobile.png)
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+All Locations Page
+![Workflow](https://github.com/benpakmnz/rickandmorty-client/blob/main/wiki/loactions-1.png)
+![Workflow](https://github.com/benpakmnz/rickandmorty-client/blob/main/wiki/loactions-2.png)
+![Workflow](https://github.com/benpakmnz/rickandmorty-client/blob/main/wiki/loactions-mobile.png)
+
+Location info Page
+![Workflow](https://github.com/benpakmnz/rickandmorty-client/blob/main/wiki/location-info.png)
+![Workflow](https://github.com/benpakmnz/rickandmorty-client/blob/main/wiki/location-info-mobile.png)
