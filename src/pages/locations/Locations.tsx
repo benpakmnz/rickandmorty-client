@@ -45,11 +45,9 @@ const Locations: React.FC = () => {
     placeholderData: keepPreviousData,
   });
 
-  const {
-    data: requestsList,
-    isLoading: isLoadingRequsets,
-    refetch: refetchRequestsList,
-  } = useQuery<{ location: string; id: string }[]>({
+  const { data: requestsList, refetch: refetchRequestsList } = useQuery<
+    { location: string; id: string }[]
+  >({
     queryKey: ["requestsList"],
     queryFn: async () => {
       const data = await getAllLocationRequests();
