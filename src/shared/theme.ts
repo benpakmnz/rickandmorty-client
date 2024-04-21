@@ -1,6 +1,11 @@
 import { createTheme } from "@mui/material";
 
 const theme = createTheme({
+  palette: {
+    secondary: {
+      main: "#009688",
+    },
+  },
   components: {
     MuiButton: {
       styleOverrides: {

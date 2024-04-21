@@ -1,4 +1,12 @@
-import { Avatar, Button, Divider, Grid, Typography } from "@mui/material";
+import {
+  Avatar,
+  Button,
+  Chip,
+  Divider,
+  Grid,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import React, { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
@@ -11,9 +19,17 @@ import { ILocationAttr } from "../../components/locationItem/LocationItem";
 import ResidentItem, {
   IResidentAttr,
 } from "../../components/residentItem/ResidentItem";
+import { queryClient } from "../../main";
+import { IUserParams } from "../../utils/Interfaces/auth-interface";
+import { getNameInitial } from "../../utils/helpers";
+import styles from "./styles.module.scss";
 
 const LocationInfo: React.FC = () => {
   const { id } = useParams();
+  const isSmallScreen = useMediaQuery("(max-width:600px)");
+  const loggedUser: IUserParams | undefined = queryClient.getQueryData([
+    "user",
+  ]);
 
   const {
     isLoading,
@@ -57,32 +73,56 @@ const LocationInfo: React.FC = () => {
   if (isLoading || isLoadingAnotherResource) return <h1>loading.....</h1>;
   if (!locationItem) return <h1>loaction not found</h1>;
   return (
-    <Grid container spacing={2} justifyContent="center" alignItems="center">
-      <Grid item xs={12} lg={3}>
-        <Avatar />
-        <Typography variant="h5">{locationItem?.name}</Typography>
-        <Typography variant="body2">Type: {locationItem?.type}</Typography>
-        <Typography variant="body2">
+    <Grid
+      container
+      columnSpacing={6}
+      justifyContent="center"
+      alignItems="flex-start"
+      padding={5}
+    >
+      <Grid item xs={10} lg={3}>
+        {!isSmallScreen && (
+          <Avatar className={styles.avatarContainer}>
+            {getNameInitial(locationItem?.name)}
+          </Avatar>
+        )}
+        <Typography
+          variant={isSmallScreen ? "h5" : "h3"}
+          mt={isSmallScreen ? 3 : 0}
+        >
+          {locationItem?.name}
+        </Typography>
+        <Typography variant="h6">Type: {locationItem?.type}</Typography>
+        <Typography variant="h6" mb={2}>
           Dimension:{locationItem?.dimension}
         </Typography>
-        {locationItem?.isExternal ? (
-          <Button variant="contained" onClick={handleAddLocation}>
+        {loggedUser?.isAdmin && locationItem?.isExternal && (
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={handleAddLocation}
+          >
             Add this Location
           </Button>
-        ) : (
-          <>
-            <Divider />
-            <Typography>This location is in our Data base</Typography>
-          </>
+        )}
+        {loggedUser?.isAdmin && !locationItem?.isExternal && (
+          <Chip label="This location is in our Data base" color="secondary" />
         )}
       </Grid>
-      <Grid item xs={12} lg={7}>
-        <Grid container spacing={5} sx={{ margin: "auto" }}>
+      <Grid item xs={10} lg={8}>
+        <Grid
+          container
+          rowSpacing={isSmallScreen ? 3 : 5}
+          sx={{ margin: isSmallScreen ? "auto" : "" }}
+        >
           <Grid item xs={12}>
-            <Typography>Residents ({residentsList?.length || 0})</Typography>
+            {isSmallScreen && <Divider />}
+            <Typography variant={isSmallScreen ? "h5" : "h4"} component="h3">
+              Residents ({residentsList?.length || 0})
+            </Typography>
           </Grid>
           {residentsList?.map((resident) => (
-            <Grid item xs={4} key={resident.id}>
+            <Grid item xs={12} lg={3} key={resident.id}>
               <ResidentItem resident={resident} />
             </Grid>
           ))}

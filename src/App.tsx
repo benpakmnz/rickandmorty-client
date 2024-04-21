@@ -4,7 +4,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import AppLayout from "./components/AppLayout";
 import Auth from "./pages/auth/Auth";
 import Locations from "./pages/locations/Locations";
-import LocationInfo from "./pages/locationInfo/locationInfo";
+import LocationInfo from "./pages/locationInfo/LocationInfo";
 
 function App() {
   return (

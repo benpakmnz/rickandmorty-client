@@ -1,5 +1,5 @@
 import { ILocationAttr } from "../components/locationItem/LocationItem";
-import { IResidentAttr } from "../pages/locationInfo/locationInfo";
+import { IResidentAttr } from "../pages/locationInfo/LocationInfo";
 import api from "./apiConnect";
 
 export const getLocations = async (name: string): Promise<ILocationAttr[]> => {
