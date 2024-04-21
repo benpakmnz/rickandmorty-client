@@ -1,7 +1,4 @@
-import {
-  IUserAuthParams,
-  IUserParams,
-} from "../utils/Interfaces/auth-interface";
+import { IUserAuthParams, IUserParams } from "../utils/interfaces";
 import api from "./apiConnect";
 
 export const login = async (userAttrs: IUserAuthParams) => {
