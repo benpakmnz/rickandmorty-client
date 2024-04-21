@@ -1,12 +1,4 @@
-import {
-  Avatar,
-  Button,
-  Chip,
-  Divider,
-  Grid,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
+import { Avatar, Button, Chip, Divider, Grid, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
@@ -24,10 +16,11 @@ import { IUserParams } from "../../utils/Interfaces/auth-interface";
 import { getNameInitial } from "../../utils/helpers";
 import styles from "./styles.module.scss";
 import Loader from "../../components/loader/Loader";
+import useMediaQueryScreen from "../../hooks/useMediaQuery";
 
 const LocationInfo: React.FC = () => {
   const { id } = useParams();
-  const isSmallScreen = useMediaQuery("(max-width:600px)");
+  const { isSmallScreen } = useMediaQueryScreen();
   const loggedUser: IUserParams | undefined = queryClient.getQueryData([
     "user",
   ]);
@@ -107,7 +100,11 @@ const LocationInfo: React.FC = () => {
           </Button>
         )}
         {loggedUser?.isAdmin && !locationItem?.isExternal && (
-          <Chip label="This location is in our Data base" color="secondary" />
+          <Chip
+            label="This location is in our Data base"
+            variant="outlined"
+            color="secondary"
+          />
         )}
       </Grid>
       <Grid item xs={10} lg={8}>

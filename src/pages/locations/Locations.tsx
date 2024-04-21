@@ -57,7 +57,7 @@ const Locations: React.FC = () => {
       </Grid>
       <Grid item xs={10}>
         {isLoading && <Loader />}
-        <Grid container spacing={2} justifyContent="center" alignItems="center">
+        <Grid container spacing={2} justifyContent="left" alignItems="center">
           {locationsList && locationsList.length > 0 ? (
             locationsList?.map((location) => (
               <Grid item xs={6} lg={4} xl={3}>

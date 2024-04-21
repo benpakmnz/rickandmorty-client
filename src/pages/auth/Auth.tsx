@@ -6,13 +6,13 @@ import {
   TextField,
   Tooltip,
   Typography,
-  useMediaQuery,
 } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "./styles.module.scss";
 import { login, signup } from "../../services/apiAuth";
 import { IUserAuthParams } from "../../utils/Interfaces/auth-interface";
 import { useMutation } from "@tanstack/react-query";
+import useMediaQueryScreen from "../../hooks/useMediaQuery";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -21,7 +21,8 @@ const Auth = () => {
     () => location.pathname === "/signup",
     [location.pathname]
   );
-  const isSmallScreen = useMediaQuery("(max-width:600px)");
+
+  const { isSmallScreen } = useMediaQueryScreen();
 
   const [formErrors, setFormErrors] = useState<{ [key: string]: string }>({});
   const [serverError, setServerError] = useState<string | null>(null);

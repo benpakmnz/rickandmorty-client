@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { ReactNode } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { autoLogin } from "../services/apiAuth";
+import Loader from "./loader/Loader";
 
 const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
@@ -15,15 +16,9 @@ const ProtectedRoute = ({ children }: { children: ReactNode }) => {
     queryFn: () => autoLogin(),
   });
 
-  if (isLoading) return <h1>loading...</h1>;
+  if (isLoading) return <Loader />;
 
-  if (isError) {
-    <h1>there is an error</h1>;
-  }
-
-  console.log(loggedUser);
-
-  if (!loggedUser) {
+  if (!loggedUser || isError) {
     navigate("/login");
   }
 
