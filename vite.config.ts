@@ -9,6 +9,7 @@ export default defineConfig(({ mode }) => {
       "process.env.STORAGE_KEY": JSON.stringify(env.STORAGE_KEY),
       "process.env.BASE_URL": JSON.stringify(env.BASE_URL),
     },
+    base: "http://benpakmnz.github.io/rickandmorty-client/",
     plugins: [react()],
   };
 });
