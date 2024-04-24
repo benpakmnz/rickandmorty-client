@@ -34,7 +34,7 @@ const LocationInfo: React.FC = () => {
   } = useQuery<ILocationParams | null>({
     queryKey: ["location"],
     queryFn: () => (id ? getLocation(id) : null),
-    staleTime: 0,
+    gcTime: 0,
   });
 
   const {
@@ -46,13 +46,20 @@ const LocationInfo: React.FC = () => {
     queryFn: () =>
       locationItem?.residents ? getCharecters(locationItem.residents) : null,
     enabled: !!locationItem,
-    staleTime: 0,
+    gcTime: 0,
   });
 
   useEffect(() => {
     if (locationItem) {
       refetchResidents();
     }
+
+    return () => {
+      debugger;
+      queryClient.invalidateQueries({
+        queryKey: ["location", "residents"],
+      });
+    };
   }, [locationItem, refetchResidents]);
 
   const handleAddLocation = async () => {

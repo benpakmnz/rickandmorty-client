@@ -9,7 +9,7 @@
 
   &:hover {
     .avatarContainer {
-      background-color: #01665c !important; /* Change the background color on hover */
+      background-color: #01665c !important;
       animation: growAnimation 0.3s ease forwards;
     }
   }
@@ -32,9 +32,9 @@
 
 @keyframes growAnimation {
   0% {
-    transform: scale(1); /* Initial scale */
+    transform: scale(1);
   }
   100% {
-    transform: scale(1.05); /* Final scale */
+    transform: scale(1.05);
   }
 }

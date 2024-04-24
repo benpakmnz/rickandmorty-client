@@ -54,6 +54,7 @@ const Locations: React.FC = () => {
       return data;
     },
     enabled: loggedUser?.isAdmin,
+    staleTime: 100,
   });
 
   const locationsMutation = useMutation({
@@ -78,8 +79,6 @@ const Locations: React.FC = () => {
   const handleInputChange = (value: string) => {
     setSearchInput(value);
   };
-
-  console.log(requestsList);
 
   return (
     <Grid container p={8}>
@@ -133,8 +132,8 @@ const Locations: React.FC = () => {
             >
               {locationsList && locationsList.length > 0 ? (
                 locationsList?.map((location) => (
-                  <Grid item xs={6} lg={4} xl={3}>
-                    <LocationItem location={location} key={location.id} />
+                  <Grid item xs={6} lg={4} xl={3} key={location.id}>
+                    <LocationItem location={location} />
                   </Grid>
                 ))
               ) : (

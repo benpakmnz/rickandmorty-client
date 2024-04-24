@@ -15,6 +15,7 @@ import { login, signup } from "../../services/apiAuth";
 import { useMutation } from "@tanstack/react-query";
 import useMediaQueryScreen from "../../hooks/useMediaQuery";
 import { IUserAuthParams } from "../../utils/interfaces";
+import Loader from "../../components/loader/Loader";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -27,7 +28,6 @@ const Auth = () => {
   const { isSmallScreen } = useMediaQueryScreen();
 
   const [formErrors, setFormErrors] = useState<{ [key: string]: string }>({});
-  const [serverError, setServerError] = useState<string | null>(null);
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [formData, setFormData] = useState<IUserAuthParams>({
     email: "",
@@ -37,17 +37,16 @@ const Auth = () => {
   });
 
   useEffect(() => {
-    setIsButtonDisabled(isFormInvalid());
-    setServerError(null);
-  }, [formData, isSignup]);
+    const isFormInvalid = () => {
+      if (isSignup) {
+        return Object.values(formData).some((value) => value === "");
+      } else {
+        return formData.email === "" || formData.password === "";
+      }
+    };
 
-  const isFormInvalid = () => {
-    if (isSignup) {
-      return Object.values(formData).some((value) => value === "");
-    } else {
-      return formData.email === "" || formData.password === "";
-    }
-  };
+    setIsButtonDisabled(isFormInvalid());
+  }, [formData, isSignup]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     let value: string | boolean = e.target.value;
@@ -67,21 +66,18 @@ const Auth = () => {
     }));
   };
 
-  const mutation = useMutation({
-    mutationFn: () => (isSignup ? signup(formData) : login(formData)),
+  const { mutate, isPending, isError, error } = useMutation({
+    mutationFn: isSignup ? signup : login,
     onSuccess: (data) => {
       if (data) {
         navigate("/");
       }
     },
-    onError: (error) => {
-      setServerError(error.message || "An error occurred.");
-    },
   });
 
   const onSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    mutation.mutate();
+    mutate(formData);
   };
 
   return (
@@ -161,9 +157,9 @@ const Auth = () => {
             </>
           )}
           <Grid item xs={12}>
-            {serverError && (
+            {isError && (
               <Typography variant="body2" color="error">
-                {serverError}
+                {error.message || "An error occurred."}
               </Typography>
             )}
           </Grid>
@@ -198,6 +194,7 @@ const Auth = () => {
           </Grid>
         </Grid>
       </form>
+      {isPending && <Loader />}
     </Card>
   );
 };
