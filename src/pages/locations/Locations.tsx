@@ -54,7 +54,6 @@ const Locations: React.FC = () => {
       return data;
     },
     enabled: loggedUser?.isAdmin,
-    staleTime: 100,
   });
 
   const locationsMutation = useMutation({
