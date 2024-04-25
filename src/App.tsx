@@ -4,8 +4,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import AppLayout from "./components/AppLayout";
 import Auth from "./pages/auth/Auth";
 import Locations from "./pages/locations/Locations";
-import LocationInfo from "./pages/locationInfo/LocationInfo";
 import NotFound from "./components/notFound/NotFound";
+import LocationInfo from "./pages/locationInfo/locationInfo";
 
 function App() {
   return (

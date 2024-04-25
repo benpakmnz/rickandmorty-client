@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Avatar, Button, Chip, Divider, Grid, Typography } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
@@ -32,46 +32,24 @@ const LocationInfo: React.FC = () => {
     data: locationItem,
     refetch: refetchLocation,
   } = useQuery<ILocationParams | null>({
-    queryKey: ["location"],
+    queryKey: ["location", `${id}`],
     queryFn: () => (id ? getLocation(id) : null),
-    gcTime: 0,
+    staleTime: 60000,
   });
 
-  const {
-    isLoading: isLoadingAnotherResource,
-    data: residentsList,
-    refetch: refetchResidents,
-  } = useQuery<IResidentParams[] | null>({
-    queryKey: ["residents"],
+  const { isLoading: isLoadingAnotherResource, data: residentsList } = useQuery<
+    IResidentParams[] | null
+  >({
+    queryKey: ["residents", id],
     queryFn: () =>
       locationItem?.residents ? getCharecters(locationItem.residents) : null,
     enabled: !!locationItem,
-    gcTime: 0,
   });
-
-  useEffect(() => {
-    if (locationItem) {
-      refetchResidents();
-    }
-
-    return () => {
-      debugger;
-      queryClient.invalidateQueries({
-        queryKey: ["location", "residents"],
-      });
-    };
-  }, [locationItem, refetchResidents]);
 
   const handleAddLocation = async () => {
     locationItem && (await addLocation(locationItem));
     refetchLocation();
   };
-
-  useEffect(() => {
-    if (id) {
-      refetchLocation();
-    }
-  }, [id, refetchLocation]);
 
   if (isLoading || isLoadingAnotherResource) return <Loader />;
   return (
