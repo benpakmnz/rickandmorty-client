@@ -44,6 +44,7 @@ const LocationInfo: React.FC = () => {
     queryFn: () =>
       locationItem?.residents ? getCharecters(locationItem.residents) : null,
     enabled: !!locationItem,
+    staleTime: 60000,
   });
 
   const handleAddLocation = async () => {

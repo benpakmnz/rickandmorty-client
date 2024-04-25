@@ -14,6 +14,7 @@ const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   } = useQuery({
     queryKey: ["user"],
     queryFn: () => autoLogin(),
+    staleTime: 10000,
   });
 
   if (isLoading) return <Loader />;
